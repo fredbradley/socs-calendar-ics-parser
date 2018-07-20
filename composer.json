@@ -1,20 +1,20 @@
 {
-    "name": "fredbradley/socs-calendar-ics-parser",
-	"type": "package",
-"description": "It does clever things with ICS Calendars",
-    "require": {
-        "johngrogg/ics-parser": "^2.1"
-    },
-	"autoload": {
-		"psr-4": {
-			"FredBradley\\SOCSICSParser\\": "src"
-}
-},
-"license": "MIT",
-    "authors": [
-        {
-            "name": "Fred Bradley",
-            "email": "hello@fredbradley.co.uk"
-        }
-    ]
+  "name": "fredbradley/socs-calendar-ics-parser",
+  "type": "package",
+  "description": "A PHP Script that parses an ICS file from SOCS, in a readable format to dispaly elsewhere.",
+  "require": {
+    "johngrogg/ics-parser": "^2.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "FredBradley\\SOCSICSParser\\": "src"
+    }
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Fred Bradley",
+      "email": "code@fredbradley.media"
+    }
+  ]
 }
