@@ -9,6 +9,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Commits
 
-- Specify a composer package type [`6876474`](https://github.com/fredbradley/socs-ics-calendar-parser/commit/6876474e998ab80c328f4b4bd791dfc1fb1b9acc)
-- Add Changelog [`6718721`](https://github.com/fredbradley/socs-ics-calendar-parser/commit/67187210b916f3ac63c277d8a49176dddf0494a3)
-- Second Commit [`dd05c77`](https://github.com/fredbradley/socs-ics-calendar-parser/commit/dd05c77fe0fb4cddab3c1d1c7c53659598e9aba3)
+- Update email and ignore file [`9d40dc5`](https://github.com/fredbradley/socs-ics-calendar-parser/commit/9d40dc56ca0a52e77c3d8879ea28a1979b690733)
+- Update README.md [`359b758`](https://github.com/fredbradley/socs-ics-calendar-parser/commit/359b758bb4dcbe536cb96b033e9f62e37764931e)
+- Update description on `composer.json` [`2b9a7ab`](https://github.com/fredbradley/socs-ics-calendar-parser/commit/2b9a7ab41a27fcdb44ed5f1f163f824f723e44f4)
