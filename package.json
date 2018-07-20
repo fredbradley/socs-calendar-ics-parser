@@ -1,10 +1,10 @@
 {
-	"name": "FRB-SOCS-Calendar-Parser",
-	"version": "0.1.0",
+	"name": "frb-socs-ics-calendar-parser",
+	"version": "0.1.1",
 	"devDependencies": {
 		"auto-changelog": "*"
 	},
 	"scripts": {
-		"version": "auto-changelog -p --template changelog-templates/template.hbs && git add CHANGELOG.md"
+		"version": "auto-changelog -p --template changelog-templates/template.hbs && git add CHANGELOG.md && git commit -m 'Update Changelog'"
 	}
 }
