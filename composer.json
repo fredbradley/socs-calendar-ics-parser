@@ -1,5 +1,6 @@
 {
     "name": "fredbradley/socs-calendar-ics-parser",
+	"type": "package",
     "require": {
         "johngrogg/ics-parser": "^2.1"
     },
