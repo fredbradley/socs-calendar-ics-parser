@@ -10,7 +10,7 @@
       "FredBradley\\SOCSICSParser\\": "src"
     }
   },
-  "license": "MIT",
+  "license": "GNU AGPLv3",
   "authors": [
     {
       "name": "Fred Bradley",
