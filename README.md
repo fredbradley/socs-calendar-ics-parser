@@ -15,15 +15,16 @@ This project requires PHP 7. I'm too lazy to write for PHP5.6 these days. Get wi
 ```
 composer install fredbradley/socs-calendar-ics-parser
 ```
-
-## Usage
-### Wordpress Example
+## Examples
+### Wordpress Widget Example
 This is written to work with Wordpress and even has Wordpress Caching (`set_transient`) functionality built in, to speed up page load times. 
 
 If you want to see an example of a widget that uses this code, [please see this piece of code](https://github.com/cranleighschool/cranleigh-socs/blob/master/src/Widgets/UpcomingCalendarEventsWidget.php) in my 'cranleigh-socs' plugin. If you like you can install the entire [Cranleigh SOCS Plugin](https://github.com/cranleighschool/cranleigh-socs), but be aware it's written in Bootstrap 3 with HTML markup specifically for our sites. 
 
 If you want some help customising it, I'd be happy to help. 
 
+
+## Usage
 ### Options
   * `minNumEvents` (default: 5)
   * `ignoreCache` (default: false) Set to `true` if you don't want get the object from the cache. 
