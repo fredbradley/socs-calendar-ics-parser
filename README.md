@@ -5,7 +5,7 @@ A PHP Script that parses an ICS file from SOCS, in a readable format to display 
  * Super easy to use.
  * Once you've included it in your composer package, just one line of code will get you a PHP array of Event Objects.
  * Compatible with Wordpress transients, if you use Wordpress.
- * Compatible with Laravel Caching, if you use Laravel
+ * Compatible with Laravel Caching*, if you use Laravel _(feature available by mid september)_
  * Actively managed - if you have a feature or idea request, please let me know, or even better - submit a pull request.
 
 ## Requirements
