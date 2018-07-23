@@ -21,6 +21,8 @@ This is written to work with Wordpress and even has Wordpress Caching (`set_tran
 
 If you want to see an example of a widget that uses this code, [please see this piece of code](https://github.com/cranleighschool/cranleigh-socs/blob/master/src/Widgets/UpcomingCalendarEventsWidget.php) in my 'cranleigh-socs' plugin. If you like you can install the entire [Cranleigh SOCS Plugin](https://github.com/cranleighschool/cranleigh-socs), but be aware it's written in Bootstrap 3 with HTML markup specifically for our sites. 
 
+![Wordpress Example](https://user-images.githubusercontent.com/1639226/43061908-eca937b6-8e4e-11e8-8bf7-bd2ea0b2b6b5.png)
+
 If you want some help customising it, I'd be happy to help. 
 
 
