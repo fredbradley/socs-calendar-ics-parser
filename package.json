@@ -1,6 +1,6 @@
 {
 	"name": "frb-socs-ics-calendar-parser",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"devDependencies": {
 		"auto-changelog": "*"
 	},
