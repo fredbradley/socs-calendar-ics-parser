@@ -5,11 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.0.5](https://github.com/fredbradley/socs-calendar-ics-parser/compare/1.0.4...1.0.5) - 2018-07-27
+
+## [1.0.4](https://github.com/fredbradley/socs-calendar-ics-parser/compare/1.0.3...1.0.4) - 2018-07-25
+
+### Commits
+
+- Version Bump [`fb20936`](https://github.com/fredbradley/socs-calendar-ics-parser/commit/fb20936c5ee0f75876921035285747db0a0eca8f)
+
 ## [1.0.3](https://github.com/fredbradley/socs-calendar-ics-parser/compare/1.0.2...1.0.3) - 2018-07-25
 
 ### Commits
 
-- Update Changelog [`6f3ad13`](https://github.com/fredbradley/socs-calendar-ics-parser/commit/6f3ad135ed5bf2b9309f4d8157dfd228b712529a)
+- Update Changelog [`2ddd43f`](https://github.com/fredbradley/socs-calendar-ics-parser/commit/2ddd43f58d489fd18b2297ff9ef01e01f6a9625f)
 - Version bump [`c00a64d`](https://github.com/fredbradley/socs-calendar-ics-parser/commit/c00a64decfd874424dd1ecfd2d5b5db2aacdf772)
 - Update composer.json [`c7acfbc`](https://github.com/fredbradley/socs-calendar-ics-parser/commit/c7acfbca9c03b2dc650087630a358046a7037177)
 
