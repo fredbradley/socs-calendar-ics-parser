@@ -158,10 +158,20 @@ class CalendarEvents {
     private function fromCache() {
 
         if ( $this->siteType === 'wordpress' ) {
+
             return get_transient( $this->cacheName );
+
         }
+
         if ( $this->siteType === 'laravel') {
-            return \Illuminate\Support\Facades\Cache::get($this->cacheName);
+
+
+            $output = \Illuminate\Support\Facades\Cache::get($this->cacheName);
+
+            if ($output!==null) {
+                return $output;
+            }
+
         }
 
         return false;
