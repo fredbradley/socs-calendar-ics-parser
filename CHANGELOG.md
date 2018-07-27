@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [1.0.5](https://github.com/fredbradley/socs-calendar-ics-parser/compare/1.0.4...1.0.5) - 2018-07-27
 
+### Commits
+
+- Fixes issue with Laravel Cache returning `null` instead of `false` [`f624469`](https://github.com/fredbradley/socs-calendar-ics-parser/commit/f624469a3a549c7131e7a7b30b8a06ebb1bb0c2b)
+- Update Changelog [`6a0a702`](https://github.com/fredbradley/socs-calendar-ics-parser/commit/6a0a702e4e42f3197a60a3f6a674d03205117770)
+
 ## [1.0.4](https://github.com/fredbradley/socs-calendar-ics-parser/compare/1.0.3...1.0.4) - 2018-07-25
 
 ### Commits
