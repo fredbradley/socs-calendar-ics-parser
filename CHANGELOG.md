@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.0.7](https://github.com/fredbradley/socs-calendar-ics-parser/compare/1.0.6...1.0.7) - 2018-08-07
+
+### Commits
+
+- Also show uri query [`f1ae580`](https://github.com/fredbradley/socs-calendar-ics-parser/commit/f1ae58044683087e108c29d41ca96b8333faa167)
+
 ## [1.0.6](https://github.com/fredbradley/socs-calendar-ics-parser/compare/1.0.5...1.0.6) - 2018-08-07
 
 ### Merged
@@ -13,8 +19,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Commits
 
-- The pull request expected from TJB. [`aa877f1`](https://github.com/fredbradley/socs-calendar-ics-parser/commit/aa877f1bd62fc334ba8da0815830e91ea4010924)
+- Update Changelog [`8f59361`](https://github.com/fredbradley/socs-calendar-ics-parser/commit/8f59361ee8932d277b0ef28cf9097ba8be067dc7)
 - Update Changelog [`dfe172f`](https://github.com/fredbradley/socs-calendar-ics-parser/commit/dfe172f490e6d8a3771a8f96e66a86b150ab7a09)
+- Add in santizer [`7864667`](https://github.com/fredbradley/socs-calendar-ics-parser/commit/78646677ec260f21ea529cb5db088efca1b03a2c)
 
 ## [1.0.5](https://github.com/fredbradley/socs-calendar-ics-parser/compare/1.0.4...1.0.5) - 2018-07-27
 
