@@ -45,14 +45,16 @@ class CalendarEvents {
      */
     public $options = [
         'minNumEvents' => 5,
-        'weeksAhead'   => 15,
-        'ignoreCache'  => false,
-        'cacheName'    => 'calendar-cache'
+        'weeksAhead' => 15,
+        'ignoreCache' => false,
+        'cacheName' => 'calendar-cache',
     ];
+
     /**
      * @var string
      */
     protected $icsUri;
+
     /**
      * @var array
      */
@@ -76,16 +78,19 @@ class CalendarEvents {
         'class',
         'dtstamp_array',
         'dtend_array',
-        'dtstart_array'
+        'dtstart_array',
     ];
+
     /**
      * @var int
      */
     private $weeksAhead = 15;
+
     /**
      * @var string
      */
     private $siteType = '';
+
     /**
      * @var string
      */
@@ -95,21 +100,42 @@ class CalendarEvents {
      * CalendarEvents constructor.
      *
      * @param string $icsUri
-     * @param array  $options
+     * @param array $options
      *
      * @throws \Exception
      */
-    public function __construct( string $icsUri, array $options = [] ) {
+    public function __construct(string $icsUri, array $options = [])
+    {
 
-        $this->icsUri  = $icsUri;
-        $this->options = array_merge( $this->options, $options );
-        foreach ( $this->options as $key => $value ) {
+        $this->icsUri = $this->sanitizeWebcalUri($icsUri);
+        $this->options = array_merge($this->options, $options);
+        foreach ($this->options as $key => $value) {
             $this->{$key} = $value;
         }
 
         $this->sniffAndSetSiteType();
 
         $this->loadEvents();
+    }
+
+    /**
+     * Sanitizer. Our icsUri is expected to be a http or https request.
+     *
+     * @param $url
+     * @return string (A url)
+     */
+    private function sanitizeWebcalUri($url)
+    {
+        $uri = parse_url($url);
+        if (in_array($uri['scheme'], ['http', 'https'])) {
+            return $url;
+        } else {
+            $warning = sprintf("Your .ics file should be a 'http' or 'https' scheme. Not the %s which is what you have set. Please change this. We have changed it to 'http' for you.",
+                $uri['scheme']);
+            error_log("Calendar Warning: ".$warning);
+            $scheme = str_replace($uri['scheme'], "http", $uri['scheme']);
+            return $scheme."://".$uri['host'].$uri['path'];
+        }
 
     }
 
