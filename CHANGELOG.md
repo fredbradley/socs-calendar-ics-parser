@@ -5,12 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [1.0.5](https://github.com/fredbradley/socs-calendar-ics-parser/compare/1.0.4...1.0.5) - 2018-07-27
+## [1.0.5](https://github.com/fredbradley/socs-calendar-ics-parser/compare/1.0.5...1.0.5) - 2018-08-07
+
+### Merged
+
+- Sanitize icsUri [`#1`](https://github.com/fredbradley/socs-calendar-ics-parser/pull/1)
 
 ### Commits
 
-- Fixes issue with Laravel Cache returning `null` instead of `false` [`f624469`](https://github.com/fredbradley/socs-calendar-ics-parser/commit/f624469a3a549c7131e7a7b30b8a06ebb1bb0c2b)
-- Update Changelog [`6a0a702`](https://github.com/fredbradley/socs-calendar-ics-parser/commit/6a0a702e4e42f3197a60a3f6a674d03205117770)
+- The pull request expected from TJB. [`aa877f1`](https://github.com/fredbradley/socs-calendar-ics-parser/commit/aa877f1bd62fc334ba8da0815830e91ea4010924)
 
 ## [1.0.4](https://github.com/fredbradley/socs-calendar-ics-parser/compare/1.0.3...1.0.4) - 2018-07-25
 
