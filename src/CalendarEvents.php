@@ -134,7 +134,7 @@ class CalendarEvents {
                 $uri['scheme']);
             error_log("Calendar Warning: ".$warning);
             $scheme = str_replace($uri['scheme'], "http", $uri['scheme']);
-            return $scheme."://".$uri['host'].$uri['path'];
+            return $scheme."://".$uri['host'].$uri['path']."?".$uri['query'];
         }
 
     }
