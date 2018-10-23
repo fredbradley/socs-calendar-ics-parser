@@ -339,7 +339,7 @@ class CalendarEvents {
         }
 
         if ( $this->siteType === 'laravel' ) {
-            return \Illuminate\Support\Facades\Cache::put($this->cacheName, $input, 6 * self::HOUR_IN_SECONDS );
+            return \Illuminate\Support\Facades\Cache::put( $this->cacheName, $input, 60 );
         }
 
         return false;
