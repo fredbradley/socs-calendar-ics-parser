@@ -5,11 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [1.0.8](https://github.com/fredbradley/socs-calendar-ics-parser/compare/1.0.7...1.0.8) - 2018-10-23
-
-### Commits
-
-- Fix laravel cache time [`29f067c`](https://github.com/fredbradley/socs-calendar-ics-parser/commit/29f067c5f2c3460820f96ff6d5e8eddd8b4b65d9)
+## [1.0.8](https://github.com/fredbradley/socs-calendar-ics-parser/compare/1.0.8...1.0.8) - 2018-10-23
 
 ## [1.0.7](https://github.com/fredbradley/socs-calendar-ics-parser/compare/1.0.6...1.0.7) - 2018-08-07
 

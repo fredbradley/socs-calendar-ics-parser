@@ -248,6 +248,7 @@ class CalendarEvents {
             $event->multiDayEvent = $this->isMoreThanOneday( $event );
             $event->categories    = $this->setCategoriesArray( $event );
             $event->timeLabel     = $this->timeLabel( $event );
+            $event->calendarName  = $this->cacheName;
 
             foreach ( $this->unsetVars as $var ):
                 unset( $event->{$var} );
