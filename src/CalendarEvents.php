@@ -316,9 +316,9 @@ class CalendarEvents {
                 $time_label = "Multiday Event. Ends: " . $event_end_date->format( "jS M" );
             }
         } elseif ( $event->dtstart === $event->dtend ) {
-            $time_label = $event_start_date->format( "G:ia" );
+            $time_label = $event_start_date->format( "g:ia" );
         } else {
-            $time_label = $event_start_date->format( "G:ia" ) . " - " . $event_end_date->format( "G:ia" );
+            $time_label = $event_start_date->format( "g:ia" ) . " - " . $event_end_date->format( "g:ia" );
         }
 
         return '<i class="fa fa-fw fa-clock-o"></i>' . $time_label;
