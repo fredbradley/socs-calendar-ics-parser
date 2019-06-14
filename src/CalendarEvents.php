@@ -249,6 +249,7 @@ class CalendarEvents {
             $event->categories    = $this->setCategoriesArray( $event );
             $event->timeLabel     = $this->timeLabel( $event );
             $event->calendarName  = $this->cacheName;
+            $event->summary = html_entity_decode(html_entity_decode($event->summary));
 
             foreach ( $this->unsetVars as $var ):
                 unset( $event->{$var} );
