@@ -250,6 +250,7 @@ class CalendarEvents {
             $event->timeLabel     = $this->timeLabel( $event );
             $event->calendarName  = $this->cacheName;
             $event->summary = html_entity_decode(html_entity_decode($event->summary));
+            $event->location = html_entity_decode(html_entity_decode($event->location));
 
             foreach ( $this->unsetVars as $var ):
                 unset( $event->{$var} );
