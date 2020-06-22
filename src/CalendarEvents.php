@@ -8,6 +8,7 @@
 
 namespace FredBradley\SOCSICSParser;
 
+use Carbon\Carbon;
 use ICal\ICal;
 use ICal\Event;
 
@@ -16,7 +17,8 @@ use ICal\Event;
  *
  * @package FredBradley\SOCS
  */
-class CalendarEvents {
+class CalendarEvents
+{
 
     /**
      * Constants for Time counting. Idea taken from Wordpress!
@@ -27,6 +29,9 @@ class CalendarEvents {
 
     const DAY_IN_SECONDS = 24 * self::HOUR_IN_SECONDS;
 
+    const LARAVEL = 'laravel';
+
+    const WORDPRESS = 'wordpress';
     /**
      * @var int
      */
@@ -127,14 +132,14 @@ class CalendarEvents {
     private function sanitizeWebcalUri($url)
     {
         $uri = parse_url($url);
-        if (in_array($uri['scheme'], ['http', 'https'])) {
+        if (in_array($uri[ 'scheme' ], ['http', 'https'])) {
             return $url;
         } else {
             $warning = sprintf("Your .ics file should be a 'http' or 'https' scheme. Not the %s which is what you have set. Please change this. We have changed it to 'http' for you.",
-                $uri['scheme']);
-            error_log("Calendar Warning: ".$warning);
-            $scheme = str_replace($uri['scheme'], "http", $uri['scheme']);
-            return $scheme."://".$uri['host'].$uri['path']."?".$uri['query'];
+                $uri[ 'scheme' ]);
+            error_log("Calendar Warning: " . $warning);
+            $scheme = str_replace($uri[ 'scheme' ], "http", $uri[ 'scheme' ]);
+            return $scheme . "://" . $uri[ 'host' ] . $uri[ 'path' ] . "?" . $uri[ 'query' ];
         }
 
     }
@@ -143,12 +148,13 @@ class CalendarEvents {
      * Tries to work out what type of system you're running on, to offer the best cacheing experience.
      * @return void
      */
-    private function sniffAndSetSiteType() {
+    private function sniffAndSetSiteType()
+    {
 
-        if ( function_exists( 'add_action' ) && function_exists( 'set_transient' ) ) {
-            $this->siteType = 'wordpress';
-        } elseif ( class_exists( '\Illuminate\Support\Facades\Cache' ) ) {
-            $this->siteType = 'laravel';
+        if (function_exists('add_action') && function_exists('set_transient') && defined('WPINC')) {
+            $this->siteType = self::WORDPRESS;
+        } elseif (class_exists('\Illuminate\Support\Facades\Cache')) {
+            $this->siteType = self::LARAVEL;
         } else {
             $this->siteType = 'unknown';
         }
@@ -159,18 +165,20 @@ class CalendarEvents {
      * Depending on settings, it will try and load from the Cache first,
      * to save on page load speed.
      *
-     * @throws \Exception
      * @return void
+     * @throws \Exception
      */
-    public function loadEvents() {
+    public function loadEvents()
+    {
 
-        if ( $this->fromCache() !== false && $this->ignoreCache === false ) {
+        if ($this->fromCache() !== false && $this->ignoreCache === false) {
             $this->events = $this->fromCache();
         } else {
-            $this->events = $this->loadCalendar()->eventsFromRange( date( "Y-m-d 00:00:00" ),
-                date( "Y-m-d 00:00:00", strtotime( "+" . $this->weeksAhead . " weeks" ) ) );
+            $this->events = $this->loadCalendar()->eventsFromRange(now(), now()->addWeeks($this->weeksAhead))
+            $this->events = $this->loadCalendar()->eventsFromRange(date("Y-m-d 00:00:00"),
+                date("Y-m-d 00:00:00", strtotime("+" . $this->weeksAhead . " weeks")));
             $this->manipulateEventsObject();
-            $this->saveCache( $this->events );
+            $this->saveCache($this->events);
         }
 
     }
@@ -181,20 +189,21 @@ class CalendarEvents {
      *
      * @return bool|mixed
      */
-    private function fromCache() {
+    private function fromCache()
+    {
 
-        if ( $this->siteType === 'wordpress' ) {
+        if ($this->siteType === 'wordpress') {
 
-            return get_transient( $this->cacheName );
+            return get_transient($this->cacheName);
 
         }
 
-        if ( $this->siteType === 'laravel') {
+        if ($this->siteType === 'laravel') {
 
 
             $output = \Illuminate\Support\Facades\Cache::get($this->cacheName);
 
-            if ($output!==null) {
+            if ($output !== null) {
                 return $output;
             }
 
@@ -211,23 +220,24 @@ class CalendarEvents {
      *
      * @return \ICal\ICal|string|\WP_Error
      */
-    public function loadCalendar() {
+    public function loadCalendar()
+    {
 
         try {
-            $iCal = new ICal( $this->icsUri, [
-                'defaultSpan'                 => 1,
-                'defaultTimeZone'             => 'UTC',
-                'defaultWeekStart'            => 'MO',
+            $iCal = new ICal($this->icsUri, [
+                'defaultSpan' => 1,
+                'defaultTimeZone' => 'UTC',
+                'defaultWeekStart' => 'MO',
                 'defaultCharacterReplacement' => false,
-                'skipRecurrence'              => false,
-                'useTimeZoneWithRRules'       => false
-            ] );
+                'skipRecurrence' => false,
+                'useTimeZoneWithRRules' => false
+            ]);
 
             return $iCal;
 
-        } catch ( \Exception $e ) {
-            if ( $this->siteType === 'wordpress' ) {
-                return new \WP_Error( "400", "Could not retrieve calendar." );
+        } catch (\Exception $e) {
+            if ($this->siteType === 'wordpress') {
+                return new \WP_Error("400", "Could not retrieve calendar.");
             } else {
                 return "ERROR, could not load calendar.";
             }
@@ -241,19 +251,20 @@ class CalendarEvents {
      *
      * @return void
      */
-    private function manipulateEventsObject() {
+    private function manipulateEventsObject()
+    {
 
-        foreach ( $this->events as $event ):
-            $event->allDayEvent   = $this->isAllDayEvent( $event );
-            $event->multiDayEvent = $this->isMoreThanOneday( $event );
-            $event->categories    = $this->setCategoriesArray( $event );
-            $event->timeLabel     = $this->timeLabel( $event );
-            $event->calendarName  = $this->cacheName;
+        foreach ($this->events as $event):
+            $event->allDayEvent = $this->isAllDayEvent($event);
+            $event->multiDayEvent = $this->isMoreThanOneday($event);
+            $event->categories = $this->setCategoriesArray($event);
+            $event->timeLabel = $this->timeLabel($event);
+            $event->calendarName = $this->cacheName;
             $event->summary = html_entity_decode(html_entity_decode($event->summary));
             $event->location = html_entity_decode(html_entity_decode($event->location));
 
-            foreach ( $this->unsetVars as $var ):
-                unset( $event->{$var} );
+            foreach ($this->unsetVars as $var):
+                unset($event->{$var});
             endforeach;
         endforeach;
     }
@@ -263,9 +274,10 @@ class CalendarEvents {
      *
      * @return bool
      */
-    private function isAllDayEvent( Event $event ) {
+    private function isAllDayEvent(Event $event)
+    {
 
-        if ( $event->x_microsoft_cdo_alldayevent === "TRUE" ) {
+        if ($event->x_microsoft_cdo_alldayevent === "TRUE") {
             return true;
         } else {
             return false;
@@ -277,12 +289,13 @@ class CalendarEvents {
      *
      * @return bool
      */
-    private function isMoreThanOneday( Event $event ) {
+    private function isMoreThanOneday(Event $event)
+    {
 
         $start_ts = $event->dtstart_array[ 2 ];
-        $end_ts   = $event->dtend_array[ 2 ];
+        $end_ts = $event->dtend_array[ 2 ];
 
-        if ( ( $end_ts - $start_ts ) > self::DAY_IN_SECONDS ) {
+        if (($end_ts - $start_ts) > self::DAY_IN_SECONDS) {
             return true;
         } else {
             return false;
@@ -295,9 +308,10 @@ class CalendarEvents {
      *
      * @return array
      */
-    private function setCategoriesArray( Event $event ) {
+    private function setCategoriesArray(Event $event)
+    {
 
-        $categories = explode( ", ", $event->categories );
+        $categories = explode(", ", $event->categories);
 
         return $categories;
     }
@@ -307,20 +321,21 @@ class CalendarEvents {
      *
      * @return string
      */
-    private function timeLabel( Event $event ) {
+    private function timeLabel(Event $event)
+    {
 
-        $event_start_date = new \DateTime( $event->dtstart_tz );
-        $event_end_date   = new \DateTime( $event->dtend_tz );
+        $event_start_date = new \DateTime($event->dtstart_tz);
+        $event_end_date = new \DateTime($event->dtend_tz);
 
-        if ( $this->isAllDayEvent( $event ) ) {
+        if ($this->isAllDayEvent($event)) {
             $time_label = "All Day";
-            if ( ( $event_start_date->format( "Y-m-d" ) !== $event_end_date->format( "Y-m-d" ) ) && $this->isMoreThanOneDay( $event ) ) {
-                $time_label = "Multiday Event. Ends: " . $event_end_date->format( "jS M" );
+            if (($event_start_date->format("Y-m-d") !== $event_end_date->format("Y-m-d")) && $this->isMoreThanOneDay($event)) {
+                $time_label = "Multiday Event. Ends: " . $event_end_date->format("jS M");
             }
-        } elseif ( $event->dtstart === $event->dtend ) {
-            $time_label = $event_start_date->format( "g:ia" );
+        } elseif ($event->dtstart === $event->dtend) {
+            $time_label = $event_start_date->format("g:ia");
         } else {
-            $time_label = $event_start_date->format( "g:ia" ) . " - " . $event_end_date->format( "g:ia" );
+            $time_label = $event_start_date->format("g:ia") . " - " . $event_end_date->format("g:ia");
         }
 
         return '<i class="fa fa-fw fa-clock-o"></i>' . $time_label;
@@ -333,16 +348,17 @@ class CalendarEvents {
      *
      * @return bool
      */
-    private function saveCache( array $input ) {
+    private function saveCache(array $input)
+    {
 
-        if ( $this->siteType === 'wordpress' ) {
-            delete_transient( $this->cacheName );
+        if ($this->siteType === 'wordpress') {
+            delete_transient($this->cacheName);
 
-            return set_transient( $this->cacheName, $input, 6 * self::HOUR_IN_SECONDS );
+            return set_transient($this->cacheName, $input, 6 * self::HOUR_IN_SECONDS);
         }
 
-        if ( $this->siteType === 'laravel' ) {
-            return \Illuminate\Support\Facades\Cache::put( $this->cacheName, $input, 60 );
+        if ($this->siteType === 'laravel') {
+            return \Illuminate\Support\Facades\Cache::put($this->cacheName, $input, 60);
         }
 
         return false;

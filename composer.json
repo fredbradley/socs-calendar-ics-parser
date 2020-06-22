@@ -1,9 +1,9 @@
 {
   "name": "fredbradley/socs-calendar-ics-parser",
   "type": "package",
-  "description": "A PHP Script that parses an ICS file from SOCS, in a readable format to dispaly elsewhere.",
+  "description": "A PHP Script that parses an ICS file from SOCS, in a readable format to display elsewhere.",
   "require": {
-    "johngrogg/ics-parser": "^2.1"
+    "johngrogg/ics-parser": "^2.1.19"
   },
   "autoload": {
     "psr-4": {
