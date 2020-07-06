@@ -174,9 +174,12 @@ class CalendarEvents
         if ($this->fromCache() !== false && $this->ignoreCache === false) {
             $this->events = $this->fromCache();
         } else {
-            $this->events = $this->loadCalendar()->eventsFromRange(now(), now()->addWeeks($this->weeksAhead))
-            $this->events = $this->loadCalendar()->eventsFromRange(date("Y-m-d 00:00:00"),
-                date("Y-m-d 00:00:00", strtotime("+" . $this->weeksAhead . " weeks")));
+            $this->events = $this->loadCalendar()->eventsFromRange(now(), now()->addWeeks($this->weeksAhead));
+          
+		/**
+		 * The old school way of doing it... 
+	 	 *   $this->events = $this->loadCalendar()->eventsFromRange(date("Y-m-d 00:00:00"), date("Y-m-d 00:00:00", strtotime("+" . $this->weeksAhead . " weeks")));
+		 */
             $this->manipulateEventsObject();
             $this->saveCache($this->events);
         }
