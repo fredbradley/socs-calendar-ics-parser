@@ -5,19 +5,38 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [1.0.12](https://github.com/fredbradley/socs-calendar-ics-parser/compare/1.0.10...1.0.12) - 2019-08-07
+## [1.0.15](https://github.com/fredbradley/socs-calendar-ics-parser/compare/1.0.14...1.0.15) - 2021-09-30
+
+### Commits
+
+- upgrade deps [`1e46ff6`](https://github.com/fredbradley/socs-calendar-ics-parser/commit/1e46ff632f449ffd9a1f9112c83927f6d0e7767d)
+
+## [1.0.14](https://github.com/fredbradley/socs-calendar-ics-parser/compare/1.0.13...1.0.14) - 2020-07-06
+
+### Commits
+
+- fix error [`9623112`](https://github.com/fredbradley/socs-calendar-ics-parser/commit/9623112b05f46b6baec78171e92cb4752a9f41fa)
+
+## [1.0.13](https://github.com/fredbradley/socs-calendar-ics-parser/compare/1.0.12...1.0.13) - 2020-06-22
+
+### Commits
+
+- Update Dependencies [`db9b5b4`](https://github.com/fredbradley/socs-calendar-ics-parser/commit/db9b5b47ba6ec00509183fabe4f4f81404365170)
+- Update Dependences [`28a69bc`](https://github.com/fredbradley/socs-calendar-ics-parser/commit/28a69bc7b4b19c8f73f14dafec35bf7c762f5489)
+- Update Changelog [`5e588f9`](https://github.com/fredbradley/socs-calendar-ics-parser/commit/5e588f9b63d3d68afd05cbf46d67aefc15f20612)
+
+## [1.0.12](https://github.com/fredbradley/socs-calendar-ics-parser/compare/1.0.11...1.0.12) - 2019-08-07
 
 ### Commits
 
 - decode html entities on Location string as well [`01dc5ff`](https://github.com/fredbradley/socs-calendar-ics-parser/commit/01dc5ffbbfa26ab0372435bac9387dcdbe48ad0b)
 
-## [1.0.11](https://github.com/fredbradley/socs-calendar-ics-parser/compare/1.0.12...1.0.11) - 2019-06-14
+## [1.0.11](https://github.com/fredbradley/socs-calendar-ics-parser/compare/1.0.10...1.0.11) - 2019-06-14
 
 ### Commits
 
-- Update Dependencies [`db9b5b4`](https://github.com/fredbradley/socs-calendar-ics-parser/commit/db9b5b47ba6ec00509183fabe4f4f81404365170)
 - decode html entities [`f0c8329`](https://github.com/fredbradley/socs-calendar-ics-parser/commit/f0c8329c49d22139123e4b624c04f87cf06e42dd)
-- Update Dependences [`28a69bc`](https://github.com/fredbradley/socs-calendar-ics-parser/commit/28a69bc7b4b19c8f73f14dafec35bf7c762f5489)
+- Update Changelog [`5fab384`](https://github.com/fredbradley/socs-calendar-ics-parser/commit/5fab3847067a27c15641a440042c0fb6074827f1)
 
 ## [1.0.10](https://github.com/fredbradley/socs-calendar-ics-parser/compare/1.0.9...1.0.10) - 2019-04-12
 
