@@ -3,7 +3,7 @@
   "type": "package",
   "description": "A PHP Script that parses an ICS file from SOCS, in a readable format to display elsewhere.",
   "require": {
-    "johngrogg/ics-parser": "^2.1.19"
+    "johngrogg/ics-parser": "^2"
   },
   "autoload": {
     "psr-4": {
