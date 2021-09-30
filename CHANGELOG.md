@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [2.0.0](https://github.com/fredbradley/socs-calendar-ics-parser/compare/1.0.15...2.0.0) - 2021-09-30
+
+### Commits
+
+- Version 2. Minimum PHP is now PHP8.0. Created custom Exception for clients to use [`efa3cd1`](https://github.com/fredbradley/socs-calendar-ics-parser/commit/efa3cd16f003352425e075b29cc180fc4f5a6980)
+- Update Changelog [`ddb1c65`](https://github.com/fredbradley/socs-calendar-ics-parser/commit/ddb1c65e230e7a20fe6787860801facb8e04b754)
+
 ## [1.0.15](https://github.com/fredbradley/socs-calendar-ics-parser/compare/1.0.14...1.0.15) - 2021-09-30
 
 ### Commits
