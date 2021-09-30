@@ -9,8 +9,10 @@
 namespace FredBradley\SOCSICSParser;
 
 use Carbon\Carbon;
-use ICal\ICal;
+use FredBradley\SOCSICSParser\Exceptions\FailedToLoadCalendar;
+use FredBradley\SOCSICSParser\Traits\Cache;
 use ICal\Event;
+use ICal\ICal;
 
 /**
  * Class CalendarEvents
@@ -19,7 +21,7 @@ use ICal\Event;
  */
 class CalendarEvents
 {
-
+    use Cache;
     /**
      * Constants for Time counting. Idea taken from Wordpress!
      */
@@ -35,20 +37,20 @@ class CalendarEvents
     /**
      * @var int
      */
-    public $minNumEvents = 5;
+    public int $minNumEvents = 5;
 
     /**
      * @var array
      */
-    public $events = [];
+    public array $events = [];
     /**
      * @var bool
      */
-    public $ignoreCache = true;
+    public bool $ignoreCache = true;
     /**
      * @var array
      */
-    public $options = [
+    public array $options = [
         'minNumEvents' => 5,
         'weeksAhead' => 15,
         'ignoreCache' => false,
@@ -58,12 +60,12 @@ class CalendarEvents
     /**
      * @var string
      */
-    protected $icsUri;
+    protected string $icsUri='';
 
     /**
      * @var array
      */
-    private $unsetVars = [
+    private array $unsetVars = [
         'x_microsoft_cdo_alldayevent_array',
         'x_microsoft_cdo_alldayevent',
         'categories_array',
@@ -89,29 +91,26 @@ class CalendarEvents
     /**
      * @var int
      */
-    private $weeksAhead = 15;
+    private int $weeksAhead = 15;
 
     /**
      * @var string
      */
-    private $siteType = '';
+    private string $siteType = '';
 
     /**
      * @var string
      */
-    private $cacheName = '';
+    private string $cacheName = '';
 
     /**
-     * CalendarEvents constructor.
+     * @param  string  $icsUri
+     * @param  array  $options
      *
-     * @param string $icsUri
-     * @param array $options
-     *
-     * @throws \Exception
+     * @throws \FredBradley\SOCSICSParser\Exceptions\FailedToLoadCalendar
      */
     public function __construct(string $icsUri, array $options = [])
     {
-
         $this->icsUri = $this->sanitizeWebcalUri($icsUri);
         $this->options = array_merge($this->options, $options);
         foreach ($this->options as $key => $value) {
@@ -126,10 +125,10 @@ class CalendarEvents
     /**
      * Sanitizer. Our icsUri is expected to be a http or https request.
      *
-     * @param $url
+     * @param string $url
      * @return string (A url)
      */
-    private function sanitizeWebcalUri($url)
+    private function sanitizeWebcalUri(string $url): string
     {
         $uri = parse_url($url);
         if (in_array($uri[ 'scheme' ], ['http', 'https'])) {
@@ -141,16 +140,15 @@ class CalendarEvents
             $scheme = str_replace($uri[ 'scheme' ], "http", $uri[ 'scheme' ]);
             return $scheme . "://" . $uri[ 'host' ] . $uri[ 'path' ] . "?" . $uri[ 'query' ];
         }
-
     }
 
     /**
      * Tries to work out what type of system you're running on, to offer the best cacheing experience.
+     *
      * @return void
      */
-    private function sniffAndSetSiteType()
+    private function sniffAndSetSiteType(): void
     {
-
         if (function_exists('add_action') && function_exists('set_transient') && defined('WPINC')) {
             $this->siteType = self::WORDPRESS;
         } elseif (class_exists('\Illuminate\Support\Facades\Cache')) {
@@ -166,53 +164,19 @@ class CalendarEvents
      * to save on page load speed.
      *
      * @return void
-     * @throws \Exception
+     * @throws \FredBradley\SOCSICSParser\Exceptions\FailedToLoadCalendar
      */
-    public function loadEvents()
+    public function loadEvents(): void
     {
-
         if ($this->fromCache() !== false && $this->ignoreCache === false) {
             $this->events = $this->fromCache();
         } else {
-            $this->events = $this->loadCalendar()->eventsFromRange(now(), now()->addWeeks($this->weeksAhead));
-          
-		/**
-		 * The old school way of doing it... 
-	 	 *   $this->events = $this->loadCalendar()->eventsFromRange(date("Y-m-d 00:00:00"), date("Y-m-d 00:00:00", strtotime("+" . $this->weeksAhead . " weeks")));
-		 */
+            $calendar = $this->loadCalendar();
+            $this->events = $calendar->eventsFromRange(now(), now()->addWeeks($this->weeksAhead));
+
             $this->manipulateEventsObject();
             $this->saveCache($this->events);
         }
-
-    }
-
-    /**
-     * Returns the $events array from the Cache.
-     * Dependant on $siteType;
-     *
-     * @return bool|mixed
-     */
-    private function fromCache()
-    {
-
-        if ($this->siteType === 'wordpress') {
-
-            return get_transient($this->cacheName);
-
-        }
-
-        if ($this->siteType === 'laravel') {
-
-
-            $output = \Illuminate\Support\Facades\Cache::get($this->cacheName);
-
-            if ($output !== null) {
-                return $output;
-            }
-
-        }
-
-        return false;
     }
 
     /**
@@ -221,11 +185,11 @@ class CalendarEvents
      * If it fails, then depending on the site type,
      * it returns an error exception.
      *
-     * @return \ICal\ICal|string|\WP_Error
+     * @return ICal
+     * @throws \FredBradley\SOCSICSParser\Exceptions\FailedToLoadCalendar
      */
     public function loadCalendar()
     {
-
         try {
             $iCal = new ICal($this->icsUri, [
                 'defaultSpan' => 1,
@@ -233,17 +197,11 @@ class CalendarEvents
                 'defaultWeekStart' => 'MO',
                 'defaultCharacterReplacement' => false,
                 'skipRecurrence' => false,
-                'useTimeZoneWithRRules' => false
+                'useTimeZoneWithRRules' => false,
             ]);
-
             return $iCal;
-
         } catch (\Exception $e) {
-            if ($this->siteType === 'wordpress') {
-                return new \WP_Error("400", "Could not retrieve calendar.");
-            } else {
-                return "ERROR, could not load calendar.";
-            }
+            throw new FailedToLoadCalendar($e->getMessage(), $e->getCode());
         }
     }
 
@@ -254,9 +212,8 @@ class CalendarEvents
      *
      * @return void
      */
-    private function manipulateEventsObject()
+    private function manipulateEventsObject(): void
     {
-
         foreach ($this->events as $event):
             $event->allDayEvent = $this->isAllDayEvent($event);
             $event->multiDayEvent = $this->isMoreThanOneday($event);
@@ -277,9 +234,8 @@ class CalendarEvents
      *
      * @return bool
      */
-    private function isAllDayEvent(Event $event)
+    private function isAllDayEvent(Event $event): bool
     {
-
         if ($event->x_microsoft_cdo_alldayevent === "TRUE") {
             return true;
         } else {
@@ -292,9 +248,8 @@ class CalendarEvents
      *
      * @return bool
      */
-    private function isMoreThanOneday(Event $event)
+    private function isMoreThanOneday(Event $event): bool
     {
-
         $start_ts = $event->dtstart_array[ 2 ];
         $end_ts = $event->dtend_array[ 2 ];
 
@@ -303,7 +258,6 @@ class CalendarEvents
         } else {
             return false;
         }
-
     }
 
     /**
@@ -311,12 +265,9 @@ class CalendarEvents
      *
      * @return array
      */
-    private function setCategoriesArray(Event $event)
+    private function setCategoriesArray(Event $event): array
     {
-
-        $categories = explode(", ", $event->categories);
-
-        return $categories;
+        return explode(", ", $event->categories);
     }
 
     /**
@@ -324,9 +275,8 @@ class CalendarEvents
      *
      * @return string
      */
-    private function timeLabel(Event $event)
+    private function timeLabel(Event $event): string
     {
-
         $event_start_date = new \DateTime($event->dtstart_tz);
         $event_end_date = new \DateTime($event->dtend_tz);
 
@@ -351,9 +301,8 @@ class CalendarEvents
      *
      * @return bool
      */
-    private function saveCache(array $input)
+    private function saveCache(array $input): bool
     {
-
         if ($this->siteType === 'wordpress') {
             delete_transient($this->cacheName);
 
